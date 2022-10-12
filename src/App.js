@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NotesList from "./components/NodesList";
 import { nanoid } from "nanoid";
 import Search from "./components/Search";
@@ -51,6 +51,19 @@ const App = () => {
   const [searchText, setSearchText] = useState("");
 
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedNotes = JSON.parse(localStorage.getItem("react-notes-app-data"));
+
+    if (savedNotes) {
+      setNotes(savedNotes);
+    }
+  }, []); // empty mean only load once
+
+  // Save it into our local storage
+  useEffect(() => {
+    localStorage.setItem("react-notes-app-data", JSON.stringify(notes));
+  }, [notes]); // trigger changes based on notes
 
   return (
     <div className={`${darkMode && "dark-mode"} `}>
