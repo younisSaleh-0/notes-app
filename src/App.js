@@ -36,15 +36,23 @@ const App = () => {
       date: newDate.toLocaleDateString(),
     };
 
-    
     // create a new array, add the exciting array and save is to our setNotes
     const newNotes = [...notes, newNote];
     setNotes(newNotes);
   };
 
+  const deleteNote = (id) => {
+    const newNotes = notes.filter((note) => note.id !== id);
+    setNotes(newNotes);
+  };
+
   return (
     <div className="container">
-      <NotesList notes={notes} handleAddNote={addNote} />
+      <NotesList
+        notes={notes}
+        handleAddNote={addNote}
+        handleDeleteNote={deleteNote}
+      />
     </div>
   );
 };
